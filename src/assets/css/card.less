@@ -1,0 +1,30 @@
+.m-card{
+    width:460px;
+    .pa;
+    .lt(50%,200px);
+    transform: translate(-50%,0);
+}
+.box-card{
+    padding:20px;
+}
+@media screen and (max-width:@ipad){
+    .m-card{
+        top:50%;
+        transform:translate(-50%,-50%);
+    }
+}
+@media screen and (max-width:@phone){
+    .m-card{
+        .lt(0);
+        transform:translate(0,0);
+        .w(100%);
+        .h(100%);
+        .box-card{
+            .full;
+            box-sizing: border-box;
+        }
+    }
+    .m-bottom{
+        .none;
+    }
+}
