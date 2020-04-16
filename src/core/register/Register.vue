@@ -1,17 +1,14 @@
 <template>
     <div id="app">
-        <Breadcrumb />
-        <Sidebar />
-        <router-view />
+        Register
+        <!-- <router-view /> -->
     </div>
 </template>
 
 <script>
-import Breadcrumb from './components/Breadcrumb.vue';
-import Sidebar from './components/Sidebar.vue';
 
 export default {
-    name: "App",
+    name: "Register",
     data: function() {
         return {};
     },
@@ -21,8 +18,6 @@ export default {
     mounted: function() {
     },
     components: {
-        Breadcrumb,
-        Sidebar
     }
 };
 </script>

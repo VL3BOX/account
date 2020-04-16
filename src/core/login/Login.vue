@@ -1,18 +1,24 @@
 <template>
-    <aside class="c-sidebar-left c-sidebar">
-
-    </aside>
+    <div id="app">
+        Login
+        <!-- <router-view /> -->
+    </div>
 </template>
 
 <script>
+
 export default {
-    name: "Sidebar",
+    name: "Login",
     data: function() {
         return {};
     },
     computed: {},
     methods: {},
-    mounted: function() {},
+    filters: {},
+    mounted: function() {
+    },
+    components: {
+    }
 };
 </script>
 

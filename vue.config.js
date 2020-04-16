@@ -5,6 +5,22 @@ const Setting = require("./setting.json");
 
 module.exports = {
 
+    //❤️ Multiple pages ~
+    pages:{
+        index : {
+            title : '登录 - JX3BOX',
+            entry:'src/core/login/login.js',
+            template : 'public/login/index.html',
+            filename:'login/index.html',
+        },
+        register : {
+            title : '注册 - JX3BOX',
+            entry:'src/core/register/register.js',
+            template : 'public/register/index.html',
+            filename:'register/index.html',
+        }
+    },
+
     //❤️ define path for static files ~
     publicPath:
         //FOR Localhost => development
@@ -28,14 +44,14 @@ module.exports = {
     chainWebpack: config => {
 
         //💘 html-webpack-plugin ~
-        config.plugin("html").tap(args => {
-            args[0].meta = {                            //------设置SEO信息
-                Keywords: Setting.keys,
-                Description: Setting.desc
-            };
-            args[0].title = Setting.title + SEO.title;  //------自动添加标题后缀
-            return args;
-        });
+        // config.plugin("html").tap(args => {
+        //     args[0].meta = {                            //------设置SEO信息
+        //         Keywords: Setting.keys,
+        //         Description: Setting.desc
+        //     };
+        //     args[0].title = Setting.title + SEO.title;  //------自动添加标题后缀
+        //     return args;
+        // });
 
 
         //💝 in-line small imgs ~
