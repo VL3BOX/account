@@ -1,22 +1,30 @@
-.m-main{
+.m-main {
+    .u-title {
+        color:@color;
+        letter-spacing:0.5px;
+        font-weight:300;
+        .fz(16px);
+    }
 }
 
 .m-footer{
     .mt(20px);
     p{
         margin:5px 0;
-        color:@color;
         a{
             color:@primary;
             .underline(@primary);
         }
         .fz(13px);
-
+        span{
+            color:#ccc;
+            margin:0 5px;
+        }
     }
     .u-login{
         .fl;
     }
-    .u-resetpwd{
+    .u-register{
         .fr;
     }
 }

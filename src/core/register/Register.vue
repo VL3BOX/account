@@ -26,7 +26,7 @@
                         </el-input>
                         <i
                             v-show="email_available == true"
-                            class="el-icon-success u-email-ok"
+                            class="el-icon-success u-ok"
                         ></i>
                         <div class="u-tip">
                             <el-alert
@@ -87,6 +87,9 @@
                     <p class="u-login">
                         已有账号? <a href="../login">登录 &raquo;</a>
                     </p>
+                    <p class="u-resetpwd">
+                        <a href="../password_reset">忘记密码?</a>
+                    </p>
                 </footer>
             </main>
 
@@ -126,7 +129,7 @@
 </template>
 
 <script>
-import CardHeader from '@/components/CardHeader.vue';
+import CardHeader from "@/components/CardHeader.vue";
 const { validator } = require("sterilizer");
 const axios = require("axios");
 const { JX3BOX } = require("@jx3box/jx3box-common");
@@ -149,7 +152,7 @@ export default {
 
             success: null,
 
-            homepage : JX3BOX.__Root
+            homepage: JX3BOX.__Root,
         };
     },
     computed: {
@@ -202,30 +205,31 @@ export default {
             this.pass_validate = result;
         },
         submit: function() {
-            if(this.check){
-            axios
-                .post(API + "account/register/email", {
-                    user_login: this.email,
-                    user_pass: this.pass,
-                })
-                .then((res) => {
-                    this.success = true
-                }).catch((err) => {
-                    this.success = false
-                })
+            if (this.check) {
+                axios
+                    .post(API + "account/register/email", {
+                        user_login: this.email,
+                        user_pass: this.pass,
+                    })
+                    .then((res) => {
+                        this.success = true;
+                    })
+                    .catch((err) => {
+                        this.success = false;
+                    });
             }
         },
-        reset : function (){
-            this.success = null
-            this.email_validate = null
-            this.email_available = null
-            this.pass_validate = null
-        }
+        reset: function() {
+            this.success = null;
+            this.email_validate = null;
+            this.email_available = null;
+            this.pass_validate = null;
+        },
     },
     filters: {},
     mounted: function() {},
     components: {
-        CardHeader
+        CardHeader,
     },
 };
 </script>

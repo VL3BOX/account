@@ -24,6 +24,12 @@ module.exports = {
             entry:'src/core/email_verify/email_verify.js',
             template : 'public/email_verify/index.html',
             filename:'email_verify/index.html',
+        },
+        password_reset : {
+            title : '密码重设 - JX3BOX',
+            entry:'src/core/password_reset/password_reset.js',
+            template : 'public/password_reset/index.html',
+            filename:'password_reset/index.html',
         }
     },
 
