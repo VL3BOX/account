@@ -1,14 +1,7 @@
 <template>
     <div class="m-card" id="app">
         <el-card class="box-card">
-            <header class="m-header">
-                <a :href="homepage"><img
-                    class="u-logo"
-                    svg-inline
-                    src="../../assets/img/logo.svg"
-                /></a>
-                <el-divider class="u-title">JX3BOX</el-divider>
-            </header>
+            <CardHeader />
 
             <main v-if="success == null" class="m-main">
                 <form>
@@ -133,6 +126,7 @@
 </template>
 
 <script>
+import CardHeader from '@/components/CardHeader.vue';
 const { validator } = require("sterilizer");
 const axios = require("axios");
 const { JX3BOX } = require("@jx3box/jx3box-common");
@@ -210,18 +204,15 @@ export default {
         submit: function() {
             if(this.check){
             axios
-                .post(API + "account/register_by_email", {
+                .post(API + "account/register/email", {
                     user_login: this.email,
                     user_pass: this.pass,
                 })
                 .then((res) => {
-                    // console.log(res.data);
-                    if(res.data.code == 10002){
-                        this.success = true
-                    }else{
-                        this.success = false
-                    }
-                });
+                    this.success = true
+                }).catch((err) => {
+                    this.success = false
+                })
             }
         },
         reset : function (){
@@ -233,7 +224,9 @@ export default {
     },
     filters: {},
     mounted: function() {},
-    components: {},
+    components: {
+        CardHeader
+    },
 };
 </script>
 

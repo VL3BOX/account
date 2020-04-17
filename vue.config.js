@@ -7,7 +7,7 @@ module.exports = {
 
     //❤️ Multiple pages ~
     pages:{
-        index : {
+        login : {
             title : '登录 - JX3BOX',
             entry:'src/core/login/login.js',
             template : 'public/login/index.html',
@@ -18,6 +18,12 @@ module.exports = {
             entry:'src/core/register/register.js',
             template : 'public/register/index.html',
             filename:'register/index.html',
+        },
+        email_verify : {
+            title : '邮箱验证 - JX3BOX',
+            entry:'src/core/email_verify/email_verify.js',
+            template : 'public/email_verify/index.html',
+            filename:'email_verify/index.html',
         }
     },
 
