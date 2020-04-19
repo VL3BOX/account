@@ -79,13 +79,13 @@
                         class="u-submit u-button"
                         type="primary"
                         @click="submit"
-                        :disabled="!check"
+                        :disabled="!ready"
                         >注册</el-button
                     >
                 </form>
                 <footer class="m-footer">
                     <p class="u-login">
-                        已有账号? <a href="../login">登录 &raquo;</a>
+                        已有账号? <a :href="login_url">登录 &raquo;</a>
                     </p>
                     <p class="u-resetpwd">
                         <a href="../password_reset">忘记密码?</a>
@@ -99,11 +99,12 @@
                     type="success"
                     description="一封邮箱验证的邮件已发送至您的邮箱,请注意查收"
                     show-icon
+                    :closable="false"
                 >
                 </el-alert>
                 <a
                     class="u-skip el-button u-button el-button--primary"
-                    href="../login"
+                    :href="login_url"
                     >立即登录</a
                 >
             </main>
@@ -114,6 +115,7 @@
                     type="error"
                     description="请求异常,请重试"
                     show-icon
+                    :closable="false"
                 >
                 </el-alert>
                 <el-button
@@ -133,8 +135,7 @@ import CardHeader from "@/components/CardHeader.vue";
 const { validator } = require("sterilizer");
 const axios = require("axios");
 const { JX3BOX } = require("@jx3box/jx3box-common");
-// const API = JX3BOX.__api
-const API = "http://localhost:5120/"; //FIXME:for test
+const API = JX3BOX.__api
 
 export default {
     name: "Register",
@@ -153,16 +154,20 @@ export default {
             success: null,
 
             homepage: JX3BOX.__Root,
+            redirect: "",
         };
     },
     computed: {
-        check: function() {
+        ready: function() {
             return (
                 this.email_validate &&
                 this.email_available &&
                 this.pass_validate
             );
         },
+        login_url : function (){
+            return '../login?redirect=' + this.redirect
+        }
     },
     methods: {
         checkEmail: function() {
@@ -205,7 +210,7 @@ export default {
             this.pass_validate = result;
         },
         submit: function() {
-            if (this.check) {
+            if (this.ready) {
                 axios
                     .post(API + "account/register/email", {
                         user_login: this.email,
@@ -225,9 +230,20 @@ export default {
             this.email_available = null;
             this.pass_validate = null;
         },
+        checkDirect: function() {
+            let search = new URLSearchParams(document.location.search);
+            let redirect = search.get('redirect')
+            if (redirect) {
+                this.redirect = redirect;
+            } else {
+                this.redirect = this.homepage;
+            }
+        },
     },
     filters: {},
-    mounted: function() {},
+    mounted: function() {
+        this.checkDirect()
+    },
     components: {
         CardHeader,
     },

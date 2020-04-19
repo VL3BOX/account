@@ -13,7 +13,6 @@
     "core-js": "^3.4.3",
     "csslab": "^4.0.3",
     "element-ui": "^2.13.0",
-    "localforage": "^1.7.3",
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
     "register-service-worker": "^1.6.2",
