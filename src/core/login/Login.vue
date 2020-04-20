@@ -209,20 +209,19 @@ export default {
 
                         let data = res.data.data;
                         
-                        localStorage.setItem('created_at',Date.now())
-                        localStorage.setItem("logged_in", true);
-
-                        localStorage.setItem('token',data.token)
-                        localStorage.setItem("device_id", this.device_id);
-
-                        localStorage.setItem("profile", JSON.stringify({
-                            uid: data.uid,
-                            group: data.group,
-                            name: data.name,
-                            avatar: data.avatar,
-                            bio: data.bio,
-                        }));
-                        
+                        //设置本地基本信息缓存
+                        try{
+                            this.initUser()
+                        }catch(err){
+                            //如果localstorage不存在或已满
+                            if(localStorage){
+                                location.clear()
+                                this.initUser()
+                            }else{
+                                // 都是什么妖魔鬼怪，暴力FIX
+                                alert('老古董!!!你的浏览器版本太低,无法使用本站,请更换chrome等浏览器')
+                            }
+                        }
 
                         // 跳转至来源页
                         if (this.redirect) {
@@ -275,13 +274,28 @@ export default {
             }
         },
         checkDeviceID: function() {
-            let device_id = localStorage.getItem("device_id");
+            let device_id = localStorage && localStorage.getItem("device_id");
             if (!device_id) {
                 this.device_id = uuidv4();
             } else {
                 this.device_id = device_id;
             }
         },
+        initUser(){
+            localStorage.setItem('created_at',Date.now())
+            localStorage.setItem("logged_in", true);
+
+            localStorage.setItem('token',data.token)
+            localStorage.setItem("device_id", this.device_id);
+
+            localStorage.setItem("profile", JSON.stringify({
+                uid: data.uid,
+                group: data.group,
+                name: data.name,
+                avatar: data.avatar,
+                bio: data.bio,
+            }));
+        }
     },
     filters: {},
     mounted: function() {
