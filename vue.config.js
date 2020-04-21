@@ -30,7 +30,13 @@ module.exports = {
             entry:'src/core/password_reset/password_reset.js',
             template : 'public/password_reset/index.html',
             filename:'password_reset/index.html',
-        }
+        },
+        login_callback : {
+            title : '登录成功 - JX3BOX',
+            entry:'src/core/login_callback/login_callback.js',
+            template : 'public/login_callback/index.html',
+            filename:'login_callback/index.html',
+        },
     },
 
     //❤️ define path for static files ~

@@ -71,6 +71,9 @@
                         >登录</el-button
                     >
                 </form>
+
+                <LoginWith />
+
                 <footer class="m-footer">
                     <p class="u-login">
                         还没有账号? <a :href="register_url">立即注册 &raquo;</a>
@@ -120,13 +123,14 @@
 
 <script>
 import CardHeader from "@/components/CardHeader.vue";
+import LoginWith from "@/components/LoginWith.vue";
 const { validator } = require("sterilizer");
 const axios = require("axios");
 const cookie = require("../../utils/cookie");
 import { v4 as uuidv4 } from "uuid";
 const { JX3BOX } = require("@jx3box/jx3box-common");
-const API = JX3BOX.__api;
-// const API = 'http://localhost:5120'
+// const API = JX3BOX.__api;
+const API = 'http://localhost:5120/'
 
 export default {
     name: "Login",
@@ -157,9 +161,9 @@ export default {
         ready: function() {
             return this.email_validate && this.pass_validate;
         },
-        register_url : function (){
-            return '../register?redirect=' + this.redirect
-        }
+        register_url: function() {
+            return "../register?redirect=" + this.redirect;
+        },
     },
     methods: {
         checkEmail: function() {
@@ -208,27 +212,17 @@ export default {
                         this.success = true;
 
                         let data = res.data.data;
-                        
-                        //设置本地基本信息缓存
-                        try{
-                            this.initUser()
-                        }catch(err){
-                            //如果localstorage不存在或已满
-                            if(localStorage){
-                                location.clear()
-                                this.initUser()
-                            }else{
-                                // 都是什么妖魔鬼怪，暴力FIX
-                                alert('老古董!!!你的浏览器版本太低,无法使用本站,请更换chrome等浏览器')
+                        User.update(data).then(() => {
+                            // 跳转至来源页
+                            if (this.redirect) {
+                                setTimeout(() => {
+                                    location.href = this.redirect;
+                                }, 1200);
                             }
-                        }
-
-                        // 跳转至来源页
-                        if (this.redirect) {
-                            setTimeout(() => {
-                                location.href = this.redirect;
-                            }, 1200);
-                        }
+                        }).catch((err) => {
+                            alert('浏览器版本太低,不支持本站')
+                        })
+                        
                     })
                     .catch((err) => {
                         this.success = false;
@@ -264,7 +258,7 @@ export default {
         },
         checkDirect: function() {
             let search = new URLSearchParams(document.location.search);
-            let redirect = search.get('redirect')
+            let redirect = search.get("redirect");
             if (redirect) {
                 this.redirect = redirect;
                 this.redirect_button = "即将跳转";
@@ -274,28 +268,16 @@ export default {
             }
         },
         checkDeviceID: function() {
-            let device_id = localStorage && localStorage.getItem("device_id");
-            if (!device_id) {
-                this.device_id = uuidv4();
-            } else {
-                this.device_id = device_id;
+            if(localStorage){
+                let device_id = localStorage.getItem("device_id");
+                if (!device_id) {
+                    this.device_id = uuidv4();
+                } else {
+                    this.device_id = device_id;
+                }
+                localStorage.setItem("device_id", this.device_id);
             }
         },
-        initUser(){
-            localStorage.setItem('created_at',Date.now())
-            localStorage.setItem("logged_in", true);
-
-            localStorage.setItem('token',data.token)
-            localStorage.setItem("device_id", this.device_id);
-
-            localStorage.setItem("profile", JSON.stringify({
-                uid: data.uid,
-                group: data.group,
-                name: data.name,
-                avatar: data.avatar,
-                bio: data.bio,
-            }));
-        }
     },
     filters: {},
     mounted: function() {
@@ -304,6 +286,7 @@ export default {
     },
     components: {
         CardHeader,
+        LoginWith
     },
 };
 </script>

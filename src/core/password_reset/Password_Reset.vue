@@ -247,7 +247,8 @@ import CardHeader from "@/components/CardHeader.vue";
 const { validator } = require("sterilizer");
 const axios = require("axios");
 const { JX3BOX } = require("@jx3box/jx3box-common");
-const API = JX3BOX.__api
+// const API = JX3BOX.__api
+const API = 'http://localhost:5120'
 
 export default {
     name: "Password_Reset",
