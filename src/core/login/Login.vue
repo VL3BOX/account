@@ -129,7 +129,7 @@ const axios = require("axios");
 const cookie = require("../../utils/cookie");
 import { v4 as uuidv4 } from "uuid";
 const { JX3BOX } = require("@jx3box/jx3box-common");
-// const API = JX3BOX.__api;
+// const API = JX3BOX.__server;
 const API = 'http://localhost:5120/'
 
 export default {
