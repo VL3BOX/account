@@ -10,23 +10,33 @@
                     <span class="u-oauth-name">Github</span>
                 </a></el-col
             >
-            <el-col :span="8"><a :href="qq_url">
+            <el-col :span="8"
+                ><a :href="qq_url">
                     <i class="u-oauth-logo"
                         ><img svg-inline src="../assets/img/qq.svg"
                     /></i>
                     <span class="u-oauth-name">QQ</span>
-                </a></el-col>
-            <el-col :span="8"></el-col>
+                </a></el-col
+            >
+            <el-col :span="8"
+                ><a :href="weibo_url">
+                    <i class="u-oauth-logo"
+                        ><img svg-inline src="../assets/img/weibo.svg"
+                    /></i>
+                    <span class="u-oauth-name">微博</span>
+                </a></el-col
+            >
         </el-row>
     </div>
 </template>
 
 <script>
-const { OAuth,JX3BOX,User } = require("@jx3box/jx3box-common");
+const { OAuth, JX3BOX, User } = require("@jx3box/jx3box-common");
 
 // const API = `${JX3BOX.__server}oauth/`
-const github_callback = 'http://localhost:5120/oauth/github/callback'
-const qq_callback = 'https://www.jx3box.com/wp-json/qqworld-passport/v1/module/qq'
+OAuth['github']['callback'] = "http://localhost:5120/oauth/github/callback";
+OAuth['qq']['callback'] = "https://www.jx3box.com/wp-json/qqworld-passport/v1/module/qq";
+OAuth['weibo']['callback'] = "https://www.jx3box.com/wp-json/qqworld-passport/v1/module/weibo/";
 
 export default {
     name: "LoginWith",
@@ -35,15 +45,19 @@ export default {
         return {
             github: OAuth.github,
             qq: OAuth.qq,
-            uuid : User.getUUID() || 'jx3box'
+            weibo: OAuth.weibo,
+            uuid: User.getUUID() || "jx3box",
         };
     },
     computed: {
         github_url: function() {
-            return `${this.github.authorize_uri}?client_id=${this.github.client_id}&redirect_uri=${github_callback}`;
+            return `${this.github.authorize_uri}?client_id=${this.github.client_id}&redirect_uri=${this.github.callback}`;
         },
         qq_url: function() {
-            return `${this.qq.authorize_uri}?client_id=${this.qq.client_id}&redirect_uri=${qq_callback}&response_type=code&scope=get_user_info&state=${this.uuid}`;
+            return `${this.qq.authorize_uri}?client_id=${this.qq.client_id}&redirect_uri=${this.qq.callback}&response_type=code&scope=get_user_info&state=${this.uuid}`;
+        },
+        weibo_url: function() {
+            return `${this.weibo.authorize_uri}?client_id=${this.weibo.client_id}&response_type=code&redirect_uri=${this.weibo.callback}`;
         },
     },
     methods: {},

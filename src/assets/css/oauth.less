@@ -17,6 +17,7 @@
     //     .mr(20px);
     // }
 
+    @size:24px;
     a{
         .db;
         padding:10px;
@@ -30,12 +31,20 @@
     }
 
     .u-oauth-logo{
-        .dbi;.size(28px);.y(top);
+        .dbi;.size(@size);.y(top);
         padding:0 5px;
     }
     .u-oauth-name{
-        .fz(14px,28px);
+        .fz(14px,@size);
         color:@bg-black;
     }
     
+}
+
+@media screen and (max-width:@phone){
+    .m-oauth{
+        .x;
+        // a{padding:10px;}
+        .u-oauth-logo{.db;.auto(x);}
+    }
 }
