@@ -128,9 +128,9 @@ const { validator } = require("sterilizer");
 const axios = require("axios");
 const cookie = require("../../utils/cookie");
 import { v4 as uuidv4 } from "uuid";
-const { JX3BOX } = require("@jx3box/jx3box-common");
-// const API = JX3BOX.__server;
-const API = 'http://localhost:5120/'
+const { JX3BOX,User } = require("@jx3box/jx3box-common");
+const API = JX3BOX.__server;
+// const API = 'http://localhost:5120/'
 
 export default {
     name: "Login",
@@ -214,17 +214,14 @@ export default {
                         let data = res.data.data;
                         User.update(data).then(() => {
                             // 跳转至来源页
-                            if (this.redirect) {
-                                setTimeout(() => {
-                                    location.href = this.redirect;
-                                }, 1200);
-                            }
+                            this.skip()
                         }).catch((err) => {
                             alert('浏览器版本太低,不支持本站')
                         })
                         
                     })
                     .catch((err) => {
+                        console.log(err)
                         this.success = false;
                         if (err.response) {
                             this.errors = "账号或密码错误";
@@ -266,6 +263,7 @@ export default {
                 this.redirect = this.homepage;
                 this.redirect_button = "返回首页";
             }
+            console.log(decodeURIComponent(this.redirect))
         },
         checkDeviceID: function() {
             if(localStorage){
@@ -278,6 +276,13 @@ export default {
                 localStorage.setItem("device_id", this.device_id);
             }
         },
+        skip : function (){
+            if (this.redirect) {
+                setTimeout(() => {
+                    location.href = decodeURIComponent(this.redirect);
+                }, 1200);
+            }
+        }
     },
     filters: {},
     mounted: function() {

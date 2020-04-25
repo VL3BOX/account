@@ -48,8 +48,8 @@
 import CardHeader from "@/components/CardHeader.vue";
 const axios = require("axios");
 const { JX3BOX } = require("@jx3box/jx3box-common");
-// const API = JX3BOX.__server
-const API = 'http://localhost:5120/'
+const API = JX3BOX.__server
+// const API = 'http://localhost:5120/'
 
 export default {
     name: "Register",
@@ -84,7 +84,7 @@ export default {
                     this.success = true;
                     // 跳转至首页
                     setTimeout(function() {
-                        location.href = homepage;
+                        location.href = this.homepage;
                     }, 2000);
                 })
                 .catch((err) => {

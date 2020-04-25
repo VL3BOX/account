@@ -33,11 +33,6 @@
 <script>
 const { OAuth, JX3BOX, User } = require("@jx3box/jx3box-common");
 
-// const API = `${JX3BOX.__server}oauth/`
-OAuth['github']['callback'] = "http://localhost:5120/oauth/github/callback";
-OAuth['qq']['callback'] = "https://www.jx3box.com/wp-json/qqworld-passport/v1/module/qq";
-OAuth['weibo']['callback'] = "https://www.jx3box.com/wp-json/qqworld-passport/v1/module/weibo/";
-
 export default {
     name: "LoginWith",
     props: [],

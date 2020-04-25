@@ -2,7 +2,9 @@
     width:460px;
     .pa;
     .lt(50%,50%);
-    transform: translate(-50%,-50.5%);
+    transform: translate(-50%,-50%);
+
+    padding-bottom:1px;
 }
 .box-card{
     padding:20px;
@@ -91,6 +93,12 @@
     }
     .el-alert{
         .mb(10px);
+        .el-alert__title{
+            .db;
+        }
+        .el-alert__description{
+            margin-top:6px;
+        }
     }
 
 
@@ -106,5 +114,22 @@
     }
     .u-skip{
         a{color:#fff;}
+    }
+}
+
+.m-footer{
+    .mt(20px);
+    .clearfix;
+    p{
+        margin:5px 0;
+        a{
+            color:@primary;
+            .underline(@primary);
+        }
+        .fz(13px,14px);
+        span{
+            color:#ccc;
+            margin:0 5px;
+        }
     }
 }

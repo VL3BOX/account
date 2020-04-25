@@ -7,4 +7,5 @@
 
 ## 内部链接
 + 邮箱验证 `account/email_verify?uid=<uid>&code=<code>`
++ 第三方登录成功 `account/login_callback`
 
