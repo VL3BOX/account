@@ -138,7 +138,7 @@
                 <div class="u-pass">
                     <el-input
                         class="u-text"
-                        placeholder="输入密码"
+                        placeholder="新密码"
                         v-model="pwd1"
                         show-password
                         @change="checkPass"
@@ -166,7 +166,7 @@
                 <div class="u-pass">
                     <el-input
                         class="u-text"
-                        placeholder="输入密码"
+                        placeholder="重复密码"
                         v-model="pwd2"
                         show-password
                         @input="checkPass"
