@@ -4,7 +4,7 @@
             <CardHeader />
 
             <main v-if="success == null" class="m-main">
-                <form>
+                <form ref="loginForm">
                     <!-- 账号 -->
                     <div class="u-email">
                         <el-input
