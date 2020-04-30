@@ -3,7 +3,7 @@
         <el-divider class="u-title">OR</el-divider>
         <el-row :gutter="20">
             <el-col :span="8"
-                ><a :href="github_url">
+                ><a class="u-item" :href="github_url">
                     <i class="u-oauth-logo"
                         ><img svg-inline src="../assets/img/github.svg"
                     /></i>
@@ -11,7 +11,7 @@
                 </a></el-col
             >
             <el-col :span="8"
-                ><a :href="qq_url">
+                ><a class="u-item" :href="qq_url">
                     <i class="u-oauth-logo"
                         ><img svg-inline src="../assets/img/qq.svg"
                     /></i>
@@ -19,7 +19,7 @@
                 </a></el-col
             >
             <el-col :span="8"
-                ><a :href="weibo_url">
+                ><a class="u-item" :href="weibo_url">
                     <i class="u-oauth-logo"
                         ><img svg-inline src="../assets/img/weibo.svg"
                     /></i>
@@ -27,6 +27,10 @@
                 </a></el-col
             >
         </el-row>
+
+        <div class="u-ac">
+            原使用QQ登录的用户,在2020/4/28日之后没有使用<a href="https://www.jx3box.com/login" target="_blank">旧登录系统</a>登录过的，请先通过<a href="https://www.jx3box.com/login" target="_blank">旧登录系统</a>进行激活
+        </div>
     </div>
 </template>
 
