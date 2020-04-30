@@ -67,7 +67,6 @@
                         class="u-submit u-button"
                         type="primary"
                         @click="submit"
-                        :disabled="!ready"
                         >登录</el-button
                     >
                 </form>
@@ -194,6 +193,12 @@ export default {
         },
         submit: function() {
             if (this.isfrozen()) return;
+
+            // FIX:当使用填充器时,无法激活change事件,则提交时验证
+            if (!this.ready){
+                this.checkPass()
+                this.checkEmail()
+            }
 
             if (this.ready) {
                 axios

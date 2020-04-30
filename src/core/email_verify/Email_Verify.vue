@@ -83,7 +83,7 @@ export default {
                 .then((res) => {
                     this.success = true;
                     // 跳转至首页
-                    setTimeout(function() {
+                    setTimeout(() =>{
                         location.href = this.homepage;
                     }, 2000);
                 })
