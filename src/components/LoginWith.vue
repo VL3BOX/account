@@ -19,7 +19,7 @@
                 </a></el-col
             >
             <el-col :span="8"
-                ><a class="u-item" :href="weibo_url">
+                ><a class="u-item" :href="weibo_url" style="display:none">  <!-- TODO:修改微博回调 -->
                     <i class="u-oauth-logo"
                         ><img svg-inline src="../assets/img/weibo.svg"
                     /></i>
