@@ -48,8 +48,11 @@
         .db;
         padding:10px;
         background-color:@bg-light;
-
-        a{.underline(@color-link);}
+        
+        a{
+            color:@color-link;
+            .underline(@color-link);
+        }
     }
     
 }
