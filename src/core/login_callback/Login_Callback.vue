@@ -58,20 +58,25 @@ export default {
     },
     filters: {},
     mounted: function() {
-        if(document.location.search){
-            let params = new URLSearchParams(document.location.search);
-            let data = {}
+
+        let params = new URLSearchParams(location.search);
+        let data = {}
+        if(params){
+            // 缓存数据至localStorage
             for(let pair of params.entries()){
                 data[pair[0]] = pair[1]
             }
-            console.log(data)
-            User.update(data).then(() => {
-                this.success = true
-                location.href = decodeURIComponent(this.redirect)
-            })
-        }else{
-            this.success = false
+
+            // 如果指定回调
+            let redirect = params.get("redirect");
+            this.redirect = redirect
         }
+
+        // 更新成功后跳转
+        User.update(data).then(() => {
+            this.success = true
+            location.href = decodeURIComponent(this.redirect)
+        })
     },
     components: {
         CardHeader,
