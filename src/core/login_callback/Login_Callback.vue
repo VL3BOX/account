@@ -54,8 +54,7 @@ export default {
             redirect : JX3BOX.__Root,
         };
     },
-    methods: {
-    },
+    methods: {},
     filters: {},
     mounted: function() {
 
@@ -69,7 +68,7 @@ export default {
 
             // 如果指定回调
             let redirect = params.get("redirect");
-            this.redirect = redirect
+            if(redirect) this.redirect = redirect 
         }
 
         // 更新成功后跳转
