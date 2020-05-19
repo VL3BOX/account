@@ -19,7 +19,7 @@
                 </a></el-col
             >
             <el-col :span="8"
-                ><a class="u-item" :href="weibo_url" style="display:none">  <!-- TODO:修改微博回调 -->
+                ><a class="u-item" :href="weibo_url">
                     <i class="u-oauth-logo"
                         ><img svg-inline src="../assets/img/weibo.svg"
                     /></i>
@@ -28,9 +28,9 @@
             >
         </el-row>
 
-        <div class="u-ac">
+        <!-- <div class="u-ac">
             原使用QQ登录的用户,在2020/4/28日之后没有使用<a href="https://www.jx3box.com/login" target="_blank">旧登录系统</a>登录过的，请先通过<a href="https://www.jx3box.com/login" target="_blank">旧登录系统</a>进行激活
-        </div>
+        </div> -->
     </div>
 </template>
 
