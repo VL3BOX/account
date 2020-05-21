@@ -18,14 +18,14 @@
                     <span class="u-oauth-name">QQ</span>
                 </a></el-col
             >
-            <el-col :span="8"
+            <!-- <el-col :span="8"
                 ><a class="u-item" :href="weibo_url">
                     <i class="u-oauth-logo"
                         ><img svg-inline src="../assets/img/weibo.svg"
                     /></i>
                     <span class="u-oauth-name">微博</span>
                 </a></el-col
-            >
+            > -->
         </el-row>
 
         <!-- <div class="u-ac">
