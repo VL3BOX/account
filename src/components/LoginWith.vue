@@ -18,19 +18,15 @@
                     <span class="u-oauth-name">QQ</span>
                 </a></el-col
             >
-            <!-- <el-col :span="8"
+            <el-col :span="8"
                 ><a class="u-item" :href="weibo_url">
                     <i class="u-oauth-logo"
                         ><img svg-inline src="../assets/img/weibo.svg"
                     /></i>
                     <span class="u-oauth-name">微博</span>
                 </a></el-col
-            > -->
+            >
         </el-row>
-
-        <!-- <div class="u-ac">
-            原使用QQ登录的用户,在2020/4/28日之后没有使用<a href="https://www.jx3box.com/login" target="_blank">旧登录系统</a>登录过的，请先通过<a href="https://www.jx3box.com/login" target="_blank">旧登录系统</a>进行激活
-        </div> -->
     </div>
 </template>
 
