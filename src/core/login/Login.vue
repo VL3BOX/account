@@ -42,6 +42,7 @@
                             v-model="pass"
                             show-password
                             @input="checkPass"
+                            @keyup.enter.native="submit"
                         >
                             <template slot="prepend">
                                 <img
