@@ -27,15 +27,12 @@
                 </a></el-col
             >
         </el-row>
-        <!-- <div class="u-ac">
-            原使用QQ登录的用户,在2020/4/28日之后没有使用<a href="https://www.jx3box.com/login" target="_blank">旧登录系统</a>登录过的，请先通过<a href="https://www.jx3box.com/login" target="_blank">旧登录系统</a>激活旧账号,否则将会使用QQ生成新的账号。
-        </div> -->
     </div>
 </template>
 
 <script>
-const { OAuth, JX3BOX, User } = require("@jx3box/jx3box-common");
-
+import OAuth from '@/assets/js/oauth.js'
+import User from '@jx3box/jx3box-common/js/user'
 export default {
     name: "LoginWith",
     props: [],

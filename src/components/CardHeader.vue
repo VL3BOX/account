@@ -8,13 +8,13 @@
 </template>
 
 <script>
-const { JX3BOX } = require("@jx3box/jx3box-common");
-    export default {
-        name : 'CardHeader',
-        data : function(){
-            return {
-                homepage : JX3BOX.__Root
-            }
-        },
-    }
+import {__Root} from '@jx3box/jx3box-common/js/jx3box.json'
+export default {
+    name: "CardHeader",
+    data: function() {
+        return {
+            homepage: __Root,
+        };
+    },
+};
 </script>
