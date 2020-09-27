@@ -125,12 +125,11 @@
 import CardHeader from "@/components/CardHeader.vue";
 import LoginWith from "@/components/LoginWith.vue";
 const { validator } = require("sterilizer");
-const axios = require("axios");
 const cookie = require("../../utils/cookie");
 import { v4 as uuidv4 } from "uuid";
-const { JX3BOX,User } = require("@jx3box/jx3box-common");
-const API = JX3BOX.__server;
-// const API = 'http://localhost:5120/'
+import { loginByEmail } from "@/service/email.js";
+import { __Root } from "@jx3box/jx3box-common/js/jx3box.json";
+import User from "@jx3box/jx3box-common/js/user";
 
 export default {
     name: "Login",
@@ -150,7 +149,7 @@ export default {
             pass_validate: null,
             pass_validate_tip: "密码有效长度为6-50个字符",
 
-            homepage: JX3BOX.__Root,
+            homepage: __Root,
 
             failcount: 0,
             faillimit: 10,
@@ -196,46 +195,39 @@ export default {
             if (this.isfrozen()) return;
 
             // FIX:当使用填充器时,无法激活change事件,则提交时验证
-            if (!this.ready){
-                this.checkPass()
-                this.checkEmail()
+            if (!this.ready) {
+                this.checkPass();
+                this.checkEmail();
             }
 
             if (this.ready) {
-                axios
-                    .post(
-                        API + "account/login/email",
-                        {
-                            user_login: this.email,
-                            user_pass: this.pass,
-                            device_id: this.device_id,
-                        },
-                        {
-                            withCredentials: true,
-                        }
-                    )
+                loginByEmail({
+                    email: this.email,
+                    pass: this.pass,
+                    device_id: this.device_id,
+                })
                     .then((res) => {
-                        this.success = true;
-
-                        let data = res.data.data;
-                        User.update(data).then(() => {
-                            // 跳转至来源页
-                            this.skip()
-                        }).catch((err) => {
-                            alert('浏览器版本太低,不支持本站')
-                        })
-                        
-                    })
-                    .catch((err) => {
-                        console.log(err)
-                        this.success = false;
-                        if (err.response) {
-                            this.errors = "账号或密码错误";
+                        if (!res.data.code) {
+                            this.success = true;
+                            let data = res.data.data;
+                            User.update(data)
+                                .then(() => {
+                                    // 跳转至来源页
+                                    this.skip();
+                                })
+                                .catch((err) => {
+                                    alert("浏览器版本太低,不支持本站");
+                                });
+                        } else {
+                            this.success = false;
+                            this.errors = res.data.msg;
                             this.failcount++;
                             this.frozen();
-                        } else {
-                            this.errors = "网络异常或非法请求";
                         }
+                    })
+                    .catch((err) => {
+                        this.success = false;
+                        this.errors = "网络异常或非法请求";
                     });
             }
         },
@@ -254,7 +246,7 @@ export default {
         isfrozen: function() {
             if (this.failcount >= this.faillimit) {
                 this.success = false;
-                this.errors = "失败次数过多,请过24小时后再试";
+                this.errors = "失败次数过多,请24小时后再试";
                 return true;
             }
             return false;
@@ -269,10 +261,10 @@ export default {
                 this.redirect = this.homepage;
                 this.redirect_button = "返回首页";
             }
-            console.log(decodeURIComponent(this.redirect))
+            console.log(decodeURIComponent(this.redirect));
         },
         checkDeviceID: function() {
-            if(localStorage){
+            if (localStorage) {
                 let device_id = localStorage.getItem("device_id");
                 if (!device_id) {
                     this.device_id = uuidv4();
@@ -282,13 +274,13 @@ export default {
                 localStorage.setItem("device_id", this.device_id);
             }
         },
-        skip : function (){
+        skip: function() {
             if (this.redirect) {
                 setTimeout(() => {
                     location.href = decodeURIComponent(this.redirect);
                 }, 1200);
             }
-        }
+        },
     },
     filters: {},
     mounted: function() {
@@ -297,7 +289,7 @@ export default {
     },
     components: {
         CardHeader,
-        LoginWith
+        LoginWith,
     },
 };
 </script>

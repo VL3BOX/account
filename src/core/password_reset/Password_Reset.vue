@@ -12,10 +12,11 @@
                     :closable="false"
                 >
                 </el-alert>
-                <a
-                    class="u-skip el-button u-button el-button--primary"
-                    :href="homepage"
-                    >返回首页</a
+                <el-button
+                    class="u-button u-submit"
+                    type="primary"
+                    @click="reset"
+                    >返回</el-button
                 >
             </main>
 
@@ -48,7 +49,7 @@
                         </template>
                     </el-input>
                     <i
-                        v-show="email_available == true"
+                        v-show="email_valid == true"
                         class="el-icon-success u-ok"
                     ></i>
                     <div class="u-tip">
@@ -60,8 +61,8 @@
                             :closable="false"
                         ></el-alert>
                         <el-alert
-                            v-show="email_available == false"
-                            :title="email_available_tip"
+                            v-show="email_valid == false"
+                            :title="email_valid_tip"
                             type="error"
                             show-icon
                             :closable="false"
@@ -224,7 +225,7 @@
                     <el-alert
                         title="操作失败"
                         type="error"
-                        description="异常请求"
+                        :description="failtips"
                         show-icon
                         :closable="false"
                     >
@@ -245,11 +246,9 @@
 <script>
 import CardHeader from "@/components/CardHeader.vue";
 const { validator } = require("sterilizer");
-const axios = require("axios");
-const { JX3BOX } = require("@jx3box/jx3box-common");
-const API = JX3BOX.__server
-// const API = 'http://localhost:5120'
-
+import { sendCode, checkCode, resetPassword } from "@/service/password.js";
+import { checkEmail } from "@/service/email.js";
+import { __Root } from "@jx3box/jx3box-common/js/jx3box.json";
 export default {
     name: "Password_Reset",
     data: function() {
@@ -260,8 +259,8 @@ export default {
             email: "",
             email_validate: null,
             email_validate_tip: "邮箱地址格式不正确",
-            email_available: null,
-            email_available_tip: "账号不存在",
+            email_valid: null,
+            email_valid_tip: "账号不存在",
 
             code: "",
             code_validate: null,
@@ -275,12 +274,14 @@ export default {
             pass_validate_tip: "密码有效长度为6-50个字符",
             pass_accordance_tip: "两次密码不一致",
 
-            homepage: JX3BOX.__Root,
+            failtips:"",
+
+            homepage: __Root,
         };
     },
     computed: {
         available: function() {
-            return this.email_validate && this.email_available;
+            return this.email_validate && this.email_valid;
         },
         accordance: function() {
             return this.pwd1 === this.pwd2;
@@ -300,7 +301,7 @@ export default {
             // 如果为空
             if (this.email == "") {
                 this.email_validate = null;
-                this.email_available = null;
+                this.email_valid = null;
                 return;
             }
 
@@ -313,14 +314,34 @@ export default {
 
             // 检查是否存在
             if (result) {
-                axios
-                    .get(API + `account/has?user_login=${this.email}`)
-                    .then((res) => {
-                        this.email_available = res.data ? true : false;
-                    });
+                checkEmail(this.email).then((res) => {
+                    // 可以使用代表不存在
+                    this.email_valid = res.data.data ? false : true;
+                });
             } else {
-                this.email_available = null;
+                this.email_valid = null;
             }
+        },
+        checkPass: function() {
+            // 如果为空
+            if (this.pwd1 == "") {
+                this.pass_validate = null;
+            }
+
+            // 校验第1个值
+            this.pass_validate = validator(this.pwd1, {
+                len: [6, 50],
+            });
+        },
+        start: function() {
+            sendCode(this.email).then((res) => {
+                if (!res.data.code) {
+                    this.step = 2;
+                } else {
+                    this.$message.error(res.data.msg);
+                    this.step = 0;
+                }
+            });
         },
         checkCode: function() {
             // 如果为空
@@ -339,68 +360,40 @@ export default {
 
             // 检查是否存在
             if (result) {
-                axios
-                    .post(API + `account/password/reset/check`, {
-                        email: this.email,
-                        code: this.code,
-                    })
-                    .then((res) => {
-                        this.code_available = true;
-                    })
-                    .catch((err) => {
-                        this.code_available = false;
-                    });
+                checkCode({
+                    email: this.email,
+                    code: this.code,
+                }).then((res) => {
+                    this.code_available = res.data.data;
+                });
             } else {
                 this.code_available = null;
             }
         },
-        checkPass: function() {
-            // 如果为空
-            if (this.pwd1 == "") {
-                this.pass_validate = null;
-            }
-
-            // 校验第1个值
-            this.pass_validate = validator(this.pwd1, {
-                len: [6, 50],
-            });
-        },
-        start: function() {
-            axios
-                .get(API + "account/password/reset/start", {
-                    params: {
-                        email: this.email,
-                    },
-                })
-                .then((res) => {
-                    this.step = 2;
-                })
-                .catch((err) => {
-                    this.step = 0;
-                });
-        },
         done: function() {
-            axios
-                .post(API + "account/password/reset/done", {
-                    email: this.email,
-                    code: this.code,
-                    pwd1: this.pwd1,
-                    pwd2: this.pwd2,
-                })
-                .then((res) => {
-                    this.step = 3;
+            resetPassword({
+                email: this.email,
+                code: this.code,
+                pwd1: this.pwd1,
+                pwd2: this.pwd2,
+            }).then((res) => {
+                this.step = 3;
+                if(!res.data.code){
                     this.success = true;
-                })
-                .catch((err) => {
+                }else{
+                    this.failtips = res.data.msg
                     this.success = false;
-                });
+                }
+            }).catch((err) => {
+                this.step = 0
+            })
         },
         reset: function() {
             this.step = 1;
             this.success = null;
             this.email = "";
             this.email_validate = null;
-            this.email_available = null;
+            this.email_valid = null;
             this.code = "";
             this.code_validate = null;
             this.code_available = null;

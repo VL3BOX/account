@@ -113,7 +113,7 @@
                 <el-alert
                     title="注册失败"
                     type="error"
-                    description="请求异常,请重试"
+                    :description="failtips"
                     show-icon
                     :closable="false"
                 >
@@ -131,12 +131,10 @@
 </template>
 
 <script>
-import CardHeader from "@/components/CardHeader.vue";
 const { validator } = require("sterilizer");
-const axios = require("axios");
-const { JX3BOX } = require("@jx3box/jx3box-common");
-const API = JX3BOX.__server
-// const API = 'http://localhost:5120/'
+import CardHeader from "@/components/CardHeader.vue";
+import { checkEmail, registerByEmail } from "@/service/email.js";
+import { __Root } from "@jx3box/jx3box-common/js/jx3box.json";
 
 export default {
     name: "Register",
@@ -153,8 +151,9 @@ export default {
             pass_validate_tip: "密码有效长度为6-50个字符",
 
             success: null,
+            failtips : '请求异常,请重试',
 
-            homepage: JX3BOX.__Root,
+            homepage: __Root,
             redirect: "",
         };
     },
@@ -166,9 +165,9 @@ export default {
                 this.pass_validate
             );
         },
-        login_url : function (){
-            return '../login?redirect=' + this.redirect
-        }
+        login_url: function() {
+            return "../login?redirect=" + this.redirect;
+        },
     },
     methods: {
         checkEmail: function() {
@@ -188,11 +187,9 @@ export default {
 
             // 检查可用性
             if (result) {
-                axios
-                    .get(API + `account/has?user_login=${this.email}`)
-                    .then((res) => {
-                        this.email_available = res.data ? false : true;
-                    });
+                checkEmail(this.email).then((res) => {
+                    this.email_available = res.data.data;
+                });
             } else {
                 this.email_available = null;
             }
@@ -212,16 +209,21 @@ export default {
         },
         submit: function() {
             if (this.ready) {
-                axios
-                    .post(API + "account/register/email", {
-                        user_login: this.email,
-                        user_pass: this.pass,
-                    })
+                registerByEmail({
+                    email: this.email,
+                    pass: this.pass,
+                })
                     .then((res) => {
-                        this.success = true;
+                        if(!res.data.code){
+                            this.success = true;
+                        }else{
+                            this.success = false;
+                            this.failtips = res.data.msg
+                        }
                     })
                     .catch((err) => {
                         this.success = false;
+                        this.failtips = '网络请求异常,请稍后重试'
                     });
             }
         },
@@ -233,7 +235,7 @@ export default {
         },
         checkDirect: function() {
             let search = new URLSearchParams(document.location.search);
-            let redirect = search.get('redirect')
+            let redirect = search.get("redirect");
             if (redirect) {
                 this.redirect = redirect;
             } else {
@@ -243,7 +245,7 @@ export default {
     },
     filters: {},
     mounted: function() {
-        this.checkDirect()
+        this.checkDirect();
     },
     components: {
         CardHeader,
