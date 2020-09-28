@@ -17,7 +17,7 @@ function registerByEmail(data) {
 }
 
 function loginByEmail(data) {
-    return axios.post(__server + "account/login/email", {
+    return $.post(__server + "account/login/email", {
         user_email: data.email,
         user_pass: data.pass,
         device_id: data.device_id,
