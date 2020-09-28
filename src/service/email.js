@@ -22,6 +22,7 @@ function loginByEmail(data) {
         user_pass: data.pass,
         device_id: data.device_id,
     });
+    // 必须以携带模式请求
 }
 
 function verifyEmail(data) {
