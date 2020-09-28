@@ -37,6 +37,12 @@ module.exports = {
             template : 'public/app.html',
             filename:'login_callback/index.html',
         },
+        // wechat : {
+        //     title : '微信扫一扫 - JX3BOX',
+        //     entry:'src/core/wechat/wechat.js',
+        //     template : 'public/app.html',
+        //     filename:'wechat/index.html',
+        // },
     },
 
     //❤️ define path for static files ~
