@@ -27,8 +27,10 @@ function loginByEmail(data) {
 
 function verifyEmail(data) {
     return axios.get(__server + "account/email/verify", {
-        uid: data.uid,
-        code: data.code,
+        params : {
+            uid: data.uid,
+            code: data.code,
+        }
     });
 }
 
