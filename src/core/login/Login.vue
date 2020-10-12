@@ -3,119 +3,132 @@
         <el-card class="box-card">
             <CardHeader />
 
-            <main v-if="success == null" class="m-main">
-                <form ref="loginForm">
-                    <!-- 账号 -->
-                    <div class="u-email">
-                        <el-input
-                            class="u-text u-email"
-                            v-model="email"
-                            placeholder="邮箱地址"
-                            minlength="3"
-                            maxlength="50"
-                            @change="checkEmail"
-                        >
-                            <template slot="prepend">
-                                <img
-                                    class="i-mail"
-                                    svg-inline
-                                    src="../../assets/img/mail.svg"
-                                />
-                            </template>
-                        </el-input>
-                        <div class="u-tip">
-                            <el-alert
-                                v-show="email_validate == false"
-                                :title="email_validate_tip"
-                                type="error"
-                                show-icon
-                                :closable="false"
-                            ></el-alert>
+            <template v-if="!isLogin">
+                <main v-if="success == null" class="m-main">
+                    <form ref="loginForm">
+                        <!-- 账号 -->
+                        <div class="u-email">
+                            <el-input
+                                class="u-text u-email"
+                                v-model="email"
+                                placeholder="邮箱地址"
+                                minlength="3"
+                                maxlength="50"
+                                @change="checkEmail"
+                            >
+                                <template slot="prepend">
+                                    <img
+                                        class="i-mail"
+                                        svg-inline
+                                        src="../../assets/img/mail.svg"
+                                    />
+                                </template>
+                            </el-input>
+                            <div class="u-tip">
+                                <el-alert
+                                    v-show="email_validate == false"
+                                    :title="email_validate_tip"
+                                    type="error"
+                                    show-icon
+                                    :closable="false"
+                                ></el-alert>
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- 密码 -->
-                    <div class="u-pass">
-                        <el-input
-                            class="u-text"
-                            placeholder="输入密码"
-                            v-model="pass"
-                            show-password
-                            @input="checkPass"
-                            @keyup.enter.native="submit"
-                        >
-                            <template slot="prepend">
-                                <img
-                                    class="i-pass"
-                                    svg-inline
-                                    src="../../assets/img/pass.svg"
-                                />
-                            </template>
-                        </el-input>
-                        <div class="u-tip">
-                            <el-alert
-                                v-show="pass_validate == false"
-                                :title="pass_validate_tip"
-                                type="error"
-                                show-icon
-                                :closable="false"
-                            ></el-alert>
+                        <!-- 密码 -->
+                        <div class="u-pass">
+                            <el-input
+                                class="u-text"
+                                placeholder="输入密码"
+                                v-model="pass"
+                                show-password
+                                @input="checkPass"
+                                @keyup.enter.native="submit"
+                            >
+                                <template slot="prepend">
+                                    <img
+                                        class="i-pass"
+                                        svg-inline
+                                        src="../../assets/img/pass.svg"
+                                    />
+                                </template>
+                            </el-input>
+                            <div class="u-tip">
+                                <el-alert
+                                    v-show="pass_validate == false"
+                                    :title="pass_validate_tip"
+                                    type="error"
+                                    show-icon
+                                    :closable="false"
+                                ></el-alert>
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- 提交 -->
-                    <el-button
-                        class="u-submit u-button"
-                        type="primary"
-                        @click="submit"
-                        >登录</el-button
+                        <!-- 提交 -->
+                        <el-button
+                            class="u-submit u-button"
+                            type="primary"
+                            @click="submit"
+                            >登录</el-button
+                        >
+                    </form>
+
+                    <LoginWith />
+
+                    <footer class="m-footer">
+                        <p class="u-login">
+                            还没有账号?
+                            <a :href="register_url">立即注册 &raquo;</a>
+                        </p>
+                        <p class="u-resetpwd">
+                            <a href="../password_reset">忘记密码?</a>
+                        </p>
+                    </footer>
+                </main>
+
+                <main v-if="success == true" class="m-main">
+                    <el-alert
+                        title="登录成功"
+                        type="success"
+                        description="欢迎回来(#^.^#)"
+                        show-icon
+                        :closable="false"
                     >
-                </form>
+                    </el-alert>
+                    <a
+                        class="u-skip el-button u-button el-button--primary"
+                        :href="redirect"
+                        >{{ redirect_button }}</a
+                    >
+                </main>
 
-                <LoginWith />
-
-                <footer class="m-footer">
-                    <p class="u-login">
-                        还没有账号? <a :href="register_url">立即注册 &raquo;</a>
-                    </p>
-                    <p class="u-resetpwd">
-                        <a href="../password_reset">忘记密码?</a>
-                    </p>
-                </footer>
-            </main>
-
-            <main v-if="success == true" class="m-main">
-                <el-alert
-                    title="登录成功"
-                    type="success"
-                    description="欢迎回来(#^.^#)"
-                    show-icon
-                    :closable="false"
-                >
-                </el-alert>
-                <a
-                    class="u-skip el-button u-button el-button--primary"
-                    :href="redirect"
-                    >{{ redirect_button }}</a
-                >
-            </main>
-
-            <main v-if="success == false" class="m-main">
-                <el-alert
-                    title="登录失败"
-                    type="error"
-                    :description="errors"
-                    show-icon
-                    :closable="false"
-                >
-                </el-alert>
-                <el-button
-                    class="u-button u-submit"
-                    type="primary"
-                    @click="reset"
-                    >返回</el-button
-                >
-            </main>
+                <main v-if="success == false" class="m-main">
+                    <el-alert
+                        title="登录失败"
+                        type="error"
+                        :description="errors"
+                        show-icon
+                        :closable="false"
+                    >
+                    </el-alert>
+                    <el-button
+                        class="u-button u-submit"
+                        type="primary"
+                        @click="reset"
+                        >返回</el-button
+                    >
+                </main>
+            </template>
+            <template v-else>
+                <div class="m-login-in">
+                    <el-alert class="u-current-info" type="warning" show-icon :closable="false" center>
+                        <span slot="title"
+                            >已登录为 <b>{{ username }}</b></span
+                        >
+                    </el-alert>
+                    <el-button class="u-logout" type="danger" @click="logout" size="medium">登 出</el-button>
+                </div>
+            </template>
         </el-card>
         <Bottom />
     </div>
@@ -154,6 +167,9 @@ export default {
             failcount: 0,
             faillimit: 10,
             device_id: "",
+
+            isLogin: User.isLogin(),
+            username: User.getInfo().name,
         };
     },
     computed: {
@@ -280,6 +296,11 @@ export default {
                     location.href = decodeURIComponent(this.redirect);
                 }, 1200);
             }
+        },
+        logout: function() {
+            User.destroy().then(() => {
+                location.reload();
+            });
         },
     },
     filters: {},
