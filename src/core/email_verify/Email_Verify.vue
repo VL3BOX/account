@@ -62,7 +62,7 @@ export default {
     },
     computed: {
         ready: function() {
-            return this.uid && this.code.length == 24;
+            return this.uid && this.code;
         },
     },
     methods: {
