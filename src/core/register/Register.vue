@@ -2,7 +2,7 @@
     <div class="m-card" id="app">
         <el-card class="box-card">
             <CardHeader />
-
+            <Msg />
             <main v-if="success == null" class="m-main">
                 <form ref="registerForm">
                     <!-- 账号 -->
@@ -135,7 +135,7 @@ const { validator } = require("sterilizer");
 import CardHeader from "@/components/CardHeader.vue";
 import { checkEmail, registerByEmail } from "@/service/email.js";
 import { __Root } from "@jx3box/jx3box-common/js/jx3box.json";
-
+import Msg from '@/components/Msg.vue'
 export default {
     name: "Register",
     data: function() {
@@ -249,6 +249,7 @@ export default {
     },
     components: {
         CardHeader,
+        Msg
     },
 };
 </script>
