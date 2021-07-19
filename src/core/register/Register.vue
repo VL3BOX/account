@@ -134,7 +134,7 @@
 const { validator } = require("sterilizer");
 import CardHeader from "@/components/CardHeader.vue";
 import { checkEmail, registerByEmail } from "@/service/email.js";
-import { __Root } from "@jx3box/jx3box-common/js/jx3box.json";
+import { __Root } from "@jx3box/jx3box-common/data/jx3box.json";
 import Msg from '@/components/Msg.vue'
 export default {
     name: "Register",

@@ -74,7 +74,12 @@ export default {
         // 更新成功后跳转
         User.update(data).then(() => {
             this.success = true
-            location.href = decodeURIComponent(this.redirect)
+            // hack:怀旧服第三方登录问题
+            if(location.hostname == 'origin.jx3box.com'){
+                location.href = decodeURIComponent(this.redirect)
+            }else{
+                location.href = location.href.replace('www.jx3box.com','origin.jx3box.com')
+            }
         })
     },
     components: {

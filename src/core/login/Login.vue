@@ -141,7 +141,7 @@ const { validator } = require("sterilizer");
 const cookie = require("../../utils/cookie");
 import { v4 as uuidv4 } from "uuid";
 import { loginByEmail } from "@/service/email.js";
-import { __Root } from "@jx3box/jx3box-common/js/jx3box.json";
+import { __Root } from "@jx3box/jx3box-common/data/jx3box.json";
 import User from "@jx3box/jx3box-common/js/user";
 import Msg from '@/components/Msg.vue'
 export default {
