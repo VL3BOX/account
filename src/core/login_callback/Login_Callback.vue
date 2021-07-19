@@ -41,17 +41,16 @@
 
 <script>
 import CardHeader from "@/components/CardHeader.vue";
-const axios = require("axios");
-const { JX3BOX,User } = require("@jx3box/jx3box-common");
-const API = JX3BOX.__server;
-// const API = 'http://localhost:5120/'
+import axios from 'axios'
+import User from "@jx3box/jx3box-common/js/user";
+import { __Root } from "@jx3box/jx3box-common/data/jx3box.json";
 
 export default {
     name: "Login_Callback",
     data: function() {
         return {
             success: null,
-            redirect : JX3BOX.__Root,
+            redirect : __Root,
         };
     },
     methods: {},
