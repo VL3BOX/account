@@ -12,25 +12,19 @@
             > -->
             <el-col :span="8"
                 ><a class="u-item" :href="qq">
-                    <i class="u-oauth-logo"
-                        ><img svg-inline src="../assets/img/qq.svg"
-                    /></i>
+                    <i class="u-oauth-logo"><img svg-inline src="../assets/img/qq.svg" /></i>
                     <span class="u-oauth-name">QQ</span>
                 </a></el-col
             >
             <el-col :span="8"
                 ><a class="u-item" :href="wechat">
-                    <i class="u-oauth-logo"
-                        ><img svg-inline src="../assets/img/wechat.svg"
-                    /></i>
+                    <i class="u-oauth-logo"><img svg-inline src="../assets/img/wechat.svg" /></i>
                     <span class="u-oauth-name">微信</span>
                 </a></el-col
             >
             <el-col :span="8"
                 ><a class="u-item" :href="weibo">
-                    <i class="u-oauth-logo"
-                        ><img svg-inline src="../assets/img/weibo.svg"
-                    /></i>
+                    <i class="u-oauth-logo"><img svg-inline src="../assets/img/weibo.svg" /></i>
                     <span class="u-oauth-name">微博</span>
                 </a></el-col
             >
@@ -39,23 +33,28 @@
 </template>
 
 <script>
-import connect from '@jx3box/jx3box-common/js/connect.js'
-import User from '@jx3box/jx3box-common/js/user'
+import connect from "@jx3box/jx3box-common/js/connect.js";
+import User from "@jx3box/jx3box-common/js/user";
+const client = location.host.includes('origin') ? 'origin' : 'std'
 export default {
     name: "LoginWith",
     props: [],
-    data: function() {
+    data: function () {
         return {
-            github: connect.github,
-            qq: connect.qq,
-            weibo: connect.weibo,
-            wechat : connect.wechat
+            github: this.buildState(connect.github),
+            qq: this.buildState(connect.qq),
+            weibo: this.buildState(connect.weibo),
+            wechat: this.buildState(connect.wechat),
         };
     },
     computed: {
     },
-    methods: {},
-    mounted: function() {},
+    methods: {
+        buildState : function (val){
+            return val.replace('state=login',`state=login_${client}`)
+        }
+    },
+    mounted: function () {},
     components: {},
 };
 </script>

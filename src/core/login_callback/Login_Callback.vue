@@ -74,11 +74,11 @@ export default {
         User.update(data).then(() => {
             this.success = true
             // hack:怀旧服第三方登录问题
-            if(location.hostname == 'origin.jx3box.com'){
+            // if(location.hostname == 'origin.jx3box.com'){
                 location.href = decodeURIComponent(this.redirect)
-            }else{
-                location.href = location.href.replace('www.jx3box.com','origin.jx3box.com')
-            }
+            // }else{
+            //     location.href = location.href.replace('www.jx3box.com','origin.jx3box.com')
+            // }
         })
     },
     components: {
