@@ -4,35 +4,13 @@
             <CardHeader />
 
             <main v-if="success == true" class="m-main">
-                <el-alert
-                    title="登录成功"
-                    type="success"
-                    description="欢迎回来(#^.^#)"
-                    show-icon
-                    :closable="false"
-                >
-                </el-alert>
-                <a
-                    class="u-skip el-button u-button el-button--primary"
-                    :href="redirect"
-                    >即将跳转</a
-                >
+                <el-alert title="登录成功" type="success" description="欢迎回来(#^.^#)" show-icon :closable="false"> </el-alert>
+                <a class="u-skip el-button u-button el-button--primary" :href="redirect">即将跳转</a>
             </main>
 
             <main v-if="success == false" class="m-main">
-                <el-alert
-                    title="登录失败"
-                    type="error"
-                    description="令牌不合法或已过期"
-                    show-icon
-                    :closable="false"
-                >
-                </el-alert>
-                <a
-                    class="u-skip el-button u-button el-button--primary"
-                    href="../login"
-                    >返回登录</a
-                >
+                <el-alert title="登录失败" type="error" description="令牌不合法或已过期" show-icon :closable="false"> </el-alert>
+                <a class="u-skip el-button u-button el-button--primary" href="../login">返回登录</a>
             </main>
         </el-card>
         <Bottom />
@@ -41,45 +19,44 @@
 
 <script>
 import CardHeader from "@/components/CardHeader.vue";
-import axios from 'axios'
 import User from "@jx3box/jx3box-common/js/user";
-import { __Root } from "@jx3box/jx3box-common/data/jx3box.json";
+import { __Root, __OriginRoot } from "@jx3box/jx3box-common/data/jx3box.json";
+const client = location.host.includes("origin") ? "origin" : "std";
 
 export default {
     name: "Login_Callback",
-    data: function() {
+    data: function () {
         return {
             success: null,
-            redirect : __Root,
+            redirect: client =='origin' ? __OriginRoot : __Root,
         };
     },
     methods: {},
     filters: {},
-    mounted: function() {
-
+    mounted: function () {
         let params = new URLSearchParams(location.search);
-        let data = {}
-        if(params){
+        let data = {};
+        if (params) {
             // 缓存数据至localStorage
-            for(let pair of params.entries()){
-                data[pair[0]] = pair[1]
+            for (let pair of params.entries()) {
+                data[pair[0]] = pair[1];
             }
 
             // 如果指定回调
             let redirect = params.get("redirect");
-            if(redirect) this.redirect = redirect 
+            if (redirect) this.redirect = redirect;
         }
 
         // 更新成功后跳转
         User.update(data).then(() => {
-            this.success = true
+            this.success = true;
             // hack:怀旧服第三方登录问题
             // if(location.hostname == 'origin.jx3box.com'){
-                location.href = decodeURIComponent(this.redirect)
+            location.href = decodeURIComponent(this.redirect);
             // }else{
             //     location.href = location.href.replace('www.jx3box.com','origin.jx3box.com')
             // }
-        })
+        });
     },
     components: {
         CardHeader,
