@@ -7,86 +7,43 @@
                 <form ref="registerForm">
                     <!-- 账号 -->
                     <div class="u-email">
-                        <el-input
-                            class="u-text u-email"
-                            v-model="email"
-                            placeholder="邮箱地址"
-                            minlength="3"
-                            maxlength="50"
-                            type="email"
-                            @change="checkEmail"
-                        >
+                        <el-input class="u-text u-email" v-model="email" placeholder="邮箱地址" minlength="3" maxlength="50" type="email" @change="checkEmail">
                             <template slot="prepend">
-                                <img
-                                    class="i-mail"
-                                    svg-inline
-                                    src="../../assets/img/mail.svg"
-                                />
+                                <img class="i-mail" svg-inline src="../../assets/img/mail.svg" />
                             </template>
                         </el-input>
-                        <i
-                            v-show="email_available == true"
-                            class="el-icon-success u-ok"
-                        ></i>
+                        <i v-show="email_available == true" class="el-icon-success u-ok"></i>
                         <div class="u-tip">
-                            <el-alert
-                                v-show="email_validate == false"
-                                :title="email_validate_tip"
-                                type="error"
-                                show-icon
-                                :closable="false"
-                            ></el-alert>
-                            <el-alert
-                                v-show="email_available == false"
-                                :title="email_available_tip"
-                                type="error"
-                                show-icon
-                                :closable="false"
-                            ></el-alert>
+                            <el-alert v-show="email_validate == false" :title="email_validate_tip" type="error" show-icon :closable="false"></el-alert>
+                            <el-alert v-show="email_available == false" :title="email_available_tip" type="error" show-icon :closable="false"></el-alert>
                         </div>
                     </div>
 
                     <!-- 密码 -->
                     <div class="u-pass">
-                        <el-input
-                            class="u-text"
-                            placeholder="输入密码"
-                            v-model="pass"
-                            show-password
-                            @input="checkPass"
-                        >
+                        <el-input class="u-text" placeholder="输入密码" v-model="pass" show-password @input="checkPass">
                             <template slot="prepend">
-                                <img
-                                    class="i-pass"
-                                    svg-inline
-                                    src="../../assets/img/pass.svg"
-                                />
+                                <img class="i-pass" svg-inline src="../../assets/img/pass.svg" />
                             </template>
                         </el-input>
                         <div class="u-tip">
-                            <el-alert
-                                v-show="pass_validate == false"
-                                :title="pass_validate_tip"
-                                type="error"
-                                show-icon
-                                :closable="false"
-                            ></el-alert>
+                            <el-alert v-show="pass_validate == false" :title="pass_validate_tip" type="error" show-icon :closable="false"></el-alert>
                         </div>
                     </div>
 
+                    <div class="u-terms">
+                        <el-checkbox v-model="agreement" class="u-checkbox"
+                            >我已阅读并同意<a href="/about/license" target="_blank">《用户协议》</a>、<a href="/about/privacy" target="_blank">《隐私政策》</a>、<a href="/about/treaty" target="_blank"
+                                >《创作公约》</a
+                            ></el-checkbox
+                        >
+                    </div>
+
                     <!-- 提交 -->
-                    <el-button
-                        class="u-submit u-button"
-                        type="primary"
-                        @click="submit"
-                        :disabled="!ready"
-                        >注册</el-button
-                    >
+                    <el-button class="u-submit u-button" type="primary" @click="submit" :disabled="!ready">注册</el-button>
                 </form>
                 <footer class="m-footer">
-                    <p class="u-login">
-                        已有账号? <a :href="login_url">登录 &raquo;</a>
-                    </p>
+                    <p class="u-login">已有账号? <a :href="login_url">登录 &raquo;</a></p>
                     <p class="u-resetpwd">
                         <a href="../password_reset">忘记密码?</a>
                     </p>
@@ -94,36 +51,13 @@
             </main>
 
             <main v-if="success == true" class="m-main">
-                <el-alert
-                    title="注册成功"
-                    type="success"
-                    description="一封邮箱验证的邮件已发送至您的邮箱,请注意查收"
-                    show-icon
-                    :closable="false"
-                >
-                </el-alert>
-                <a
-                    class="u-skip el-button u-button el-button--primary"
-                    :href="login_url"
-                    >立即登录</a
-                >
+                <el-alert title="注册成功" type="success" description="一封邮箱验证的邮件已发送至您的邮箱,请注意查收" show-icon :closable="false"> </el-alert>
+                <a class="u-skip el-button u-button el-button--primary" :href="login_url">立即登录</a>
             </main>
 
             <main v-if="success == false" class="m-main">
-                <el-alert
-                    title="注册失败"
-                    type="error"
-                    :description="failtips"
-                    show-icon
-                    :closable="false"
-                >
-                </el-alert>
-                <el-button
-                    class="u-button u-submit"
-                    type="primary"
-                    @click="reset"
-                    >返回</el-button
-                >
+                <el-alert title="注册失败" type="error" :description="failtips" show-icon :closable="false"> </el-alert>
+                <el-button class="u-button u-submit" type="primary" @click="reset">返回</el-button>
             </main>
         </el-card>
         <Bottom />
@@ -135,10 +69,10 @@ const { validator } = require("sterilizer");
 import CardHeader from "@/components/CardHeader.vue";
 import { checkEmail, registerByEmail } from "@/service/email.js";
 import { __Root } from "@jx3box/jx3box-common/data/jx3box.json";
-import Msg from '@/components/Msg.vue'
+import Msg from "@/components/Msg.vue";
 export default {
     name: "Register",
-    data: function() {
+    data: function () {
         return {
             email: "",
             email_validate: null,
@@ -151,26 +85,24 @@ export default {
             pass_validate_tip: "密码有效长度为6-50个字符",
 
             success: null,
-            failtips : '请求异常,请重试',
+            failtips: "请求异常,请重试",
 
             homepage: __Root,
             redirect: "",
+
+            agreement: false,
         };
     },
     computed: {
-        ready: function() {
-            return (
-                this.email_validate &&
-                this.email_available &&
-                this.pass_validate
-            );
+        ready: function () {
+            return this.email_validate && this.email_available && this.pass_validate && this.agreement;
         },
-        login_url: function() {
+        login_url: function () {
             return "../login?redirect=" + this.redirect;
         },
     },
     methods: {
-        checkEmail: function() {
+        checkEmail: function () {
             // 如果为空
             if (this.email == "") {
                 this.email_validate = null;
@@ -194,7 +126,7 @@ export default {
                 this.email_available = null;
             }
         },
-        checkPass: function() {
+        checkPass: function () {
             // 如果为空
             if (this.pass == "") {
                 this.pass_validate = null;
@@ -207,33 +139,33 @@ export default {
             });
             this.pass_validate = result;
         },
-        submit: function() {
+        submit: function () {
             if (this.ready) {
                 registerByEmail({
                     email: this.email,
                     pass: this.pass,
                 })
                     .then((res) => {
-                        if(!res.data.code){
+                        if (!res.data.code) {
                             this.success = true;
-                        }else{
+                        } else {
                             this.success = false;
-                            this.failtips = res.data.msg
+                            this.failtips = res.data.msg;
                         }
                     })
                     .catch((err) => {
                         this.success = false;
-                        this.failtips = '网络请求异常,请稍后重试'
+                        this.failtips = "网络请求异常,请稍后重试";
                     });
             }
         },
-        reset: function() {
+        reset: function () {
             this.success = null;
             this.email_validate = null;
             this.email_available = null;
             this.pass_validate = null;
         },
-        checkDirect: function() {
+        checkDirect: function () {
             let search = new URLSearchParams(document.location.search);
             let redirect = search.get("redirect");
             if (redirect) {
@@ -244,12 +176,12 @@ export default {
         },
     },
     filters: {},
-    mounted: function() {
+    mounted: function () {
         this.checkDirect();
     },
     components: {
         CardHeader,
-        Msg
+        Msg,
     },
 };
 </script>
