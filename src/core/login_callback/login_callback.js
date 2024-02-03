@@ -4,6 +4,10 @@ Vue.config.productionTip = false;
 import ElementUI from "element-ui";
 Vue.use(ElementUI);
 
+import VueI18n from "vue-i18n";
+Vue.use(VueI18n);
+import i18n from "@jx3box/jx3box-common/i18n";
+
 // 通用UI模块
 // import JX3BOX_UI from '@jx3box/jx3box-common-ui'
 import "@jx3box/jx3box-common/css/element.css";
@@ -19,6 +23,7 @@ Vue.component('Bottom',Bottom)
 import Login_Callback from "./Login_Callback.vue";
 
 new Vue({
+    i18n,
     // router,
     // store,
     render: (h) => h(Login_Callback),
