@@ -11,7 +11,7 @@
                             <el-input
                                 class="u-text u-email"
                                 v-model="email"
-                                placeholder="邮箱地址"
+                                :placeholder="$t('邮箱地址')"
                                 minlength="3"
                                 maxlength="50"
                                 @change="checkEmail"
@@ -39,7 +39,7 @@
                         <div class="u-pass">
                             <el-input
                                 class="u-text"
-                                placeholder="输入密码"
+                                :placeholder="$t('输入密码')"
                                 v-model="pass"
                                 show-password
                                 @input="checkPass"
@@ -69,7 +69,7 @@
                             class="u-submit u-button"
                             type="primary"
                             @click="submit"
-                            >登录</el-button
+                            >{{ $t('登录') }}</el-button
                         >
                     </form>
 
@@ -77,20 +77,20 @@
 
                     <footer class="m-footer">
                         <p class="u-login">
-                            还没有账号?
-                            <a :href="register_url">立即注册 &raquo;</a>
+                            {{ $t('还没有账号') }}?
+                            <a :href="register_url">{{ $t('立即注册') }} &raquo;</a>
                         </p>
                         <p class="u-resetpwd">
-                            <a href="../password_reset">忘记密码?</a>
+                            <a href="../password_reset">{{ $t('忘记密码') }}?</a>
                         </p>
                     </footer>
                 </main>
 
                 <main v-if="success == true" class="m-main">
                     <el-alert
-                        title="登录成功"
+                        :title="$t('登录成功')"
                         type="success"
-                        description="欢迎回来(#^.^#)"
+                        :description="$t('欢迎回来(#^.^#)')"
                         show-icon
                         :closable="false"
                     >
@@ -104,7 +104,7 @@
 
                 <main v-if="success == false" class="m-main">
                     <el-alert
-                        title="登录失败"
+                        :title="$t('登录失败')"
                         type="error"
                         :description="errors"
                         show-icon
@@ -115,7 +115,7 @@
                         class="u-button u-submit"
                         type="primary"
                         @click="reset"
-                        >返回</el-button
+                        >{{ $t('返回') }}</el-button
                     >
                 </main>
             </template>
@@ -123,10 +123,10 @@
                 <div class="m-login-in">
                     <el-alert class="u-current-info" type="warning" show-icon :closable="false" center>
                         <span slot="title"
-                            >已登录为 <b>{{ username }}</b></span
+                            >{{ $t('已登录为') }} <b>{{ username }}</b></span
                         >
                     </el-alert>
-                    <el-button class="u-logout" type="danger" @click="logout" size="medium">登 出</el-button>
+                    <el-button class="u-logout" type="danger" @click="logout" size="medium">{{ $t('登 出') }}</el-button>
                 </div>
             </template>
         </el-card>

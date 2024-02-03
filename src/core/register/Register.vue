@@ -7,7 +7,7 @@
                 <form ref="registerForm">
                     <!-- 账号 -->
                     <div class="u-email">
-                        <el-input class="u-text u-email" v-model="email" placeholder="邮箱地址" minlength="3" maxlength="50" type="email" @change="checkEmail">
+                        <el-input class="u-text u-email" v-model="email" :placeholder="$t('邮箱地址')" minlength="3" maxlength="50" type="email" @change="checkEmail">
                             <template slot="prepend">
                                 <img class="i-mail" svg-inline src="../../assets/img/mail.svg" />
                             </template>
@@ -21,7 +21,7 @@
 
                     <!-- 密码 -->
                     <div class="u-pass">
-                        <el-input class="u-text" placeholder="输入密码" v-model="pass" show-password @input="checkPass">
+                        <el-input class="u-text" :placeholder="$t('输入密码')" v-model="pass" show-password @input="checkPass">
                             <template slot="prepend">
                                 <img class="i-pass" svg-inline src="../../assets/img/pass.svg" />
                             </template>
@@ -33,31 +33,31 @@
 
                     <div class="u-terms">
                         <el-checkbox v-model="agreement" class="u-checkbox"
-                            >我已阅读并同意<a href="/about/license" target="_blank">《用户协议》</a>、<a href="/about/privacy" target="_blank">《隐私政策》</a>、<a href="/about/treaty" target="_blank"
-                                >《创作公约》</a
+                            >{{ $t('我已阅读并同意') }}<a href="/about/license" target="_blank">《{{ }}》</a>、<a href="/about/privacy" target="_blank">《{{ $t('隐私政策') }}》</a>、<a href="/about/treaty" target="_blank"
+                                >《{{ $t('创作公约') }}》</a
                             ></el-checkbox
                         >
                     </div>
 
                     <!-- 提交 -->
-                    <el-button class="u-submit u-button" type="primary" @click="submit" :disabled="!ready">注册</el-button>
+                    <el-button class="u-submit u-button" type="primary" @click="submit" :disabled="!ready">{{ $t('注册') }}</el-button>
                 </form>
                 <footer class="m-footer">
-                    <p class="u-login">已有账号? <a :href="login_url">登录 &raquo;</a></p>
+                    <p class="u-login">{{ $t('已有账号') }}? <a :href="login_url">{{ $t('登录') }} &raquo;</a></p>
                     <p class="u-resetpwd">
-                        <a href="../password_reset">忘记密码?</a>
+                        <a href="../password_reset">{{ $t('忘记密码') }}?</a>
                     </p>
                 </footer>
             </main>
 
             <main v-if="success == true" class="m-main">
-                <el-alert title="注册成功" type="success" description="一封邮箱验证的邮件已发送至您的邮箱,请注意查收" show-icon :closable="false"> </el-alert>
-                <a class="u-skip el-button u-button el-button--primary" :href="login_url">立即登录</a>
+                <el-alert :title="$t('注册成功')" type="success" :description="$t('一封邮箱验证的邮件已发送至您的邮箱,请注意查收')" show-icon :closable="false"> </el-alert>
+                <a class="u-skip el-button u-button el-button--primary" :href="login_url">{{ $t('立即登录') }}</a>
             </main>
 
             <main v-if="success == false" class="m-main">
-                <el-alert title="注册失败" type="error" :description="failtips" show-icon :closable="false"> </el-alert>
-                <el-button class="u-button u-submit" type="primary" @click="reset">返回</el-button>
+                <el-alert :title="$t('注册失败')" type="error" :description="failtips" show-icon :closable="false"> </el-alert>
+                <el-button class="u-button u-submit" type="primary" @click="reset">{{ $t('返回') }}</el-button>
             </main>
         </el-card>
         <Bottom />

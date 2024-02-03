@@ -3,7 +3,7 @@
         <a :href="homepage"
             ><img class="u-logo" svg-inline src="../assets/img/logo.svg"
         /></a>
-        <el-divider class="u-title">JX3BOX</el-divider>
+        <el-divider class="u-title">VL3BOX - JX3BOX</el-divider>
     </header>
 </template>
 

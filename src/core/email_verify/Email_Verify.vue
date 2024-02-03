@@ -6,9 +6,9 @@
             <main class="m-main">
                 <el-alert
                     v-if="success == null"
-                    title="未知异常"
+                    :title="$t('未知异常')"
                     type="error"
-                    description="非法请求或网络异常"
+                    :description="$t('非法请求或网络异常')"
                     show-icon
                     :closable="false"
                 >
@@ -16,9 +16,9 @@
 
                 <el-alert
                     v-if="success == true"
-                    title="验证成功"
+                    :title="$t('验证成功')"
                     type="success"
-                    description="欢迎成为JX3BOX大家庭的正式一员:)"
+                    :description="$t('欢迎成为JX3BOX大家庭的正式一员:)')"
                     show-icon
                     :closable="false"
                 >
@@ -26,9 +26,9 @@
 
                 <el-alert
                     v-if="success == false"
-                    title="验证失败"
+                    :title="$t('验证失败')"
                     type="warning"
-                    description="无效链接 或 链接已失效"
+                    :description="$t('无效链接 或 链接已失效')"
                     show-icon
                     :closable="false"
                 >
@@ -37,7 +37,7 @@
                 <a
                     class="u-skip el-button u-button el-button--primary"
                     :href="homepage"
-                    >返回首页</a
+                    >{{ $t('返回首页') }}</a
                 >
             </main>
         </el-card>

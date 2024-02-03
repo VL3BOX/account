@@ -4,13 +4,13 @@
             <CardHeader />
 
             <main v-if="success == true" class="m-main">
-                <el-alert title="登录成功" type="success" description="欢迎回来(#^.^#)" show-icon :closable="false"> </el-alert>
-                <a class="u-skip el-button u-button el-button--primary" :href="redirect">即将跳转</a>
+                <el-alert :title="$t('登录成功')" type="success" description="欢迎回来(#^.^#)" show-icon :closable="false"> </el-alert>
+                <a class="u-skip el-button u-button el-button--primary" :href="redirect">{{ $t('即将跳转') }}</a>
             </main>
 
             <main v-if="success == false" class="m-main">
-                <el-alert title="登录失败" type="error" description="令牌不合法或已过期" show-icon :closable="false"> </el-alert>
-                <a class="u-skip el-button u-button el-button--primary" href="../login">返回登录</a>
+                <el-alert :title="$t('登录失败')" type="error" :description="$t('令牌不合法或已过期')" show-icon :closable="false"> </el-alert>
+                <a class="u-skip el-button u-button el-button--primary" href="../login">{{ $t('返回登录') }}</a>
             </main>
         </el-card>
         <Bottom />

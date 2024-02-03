@@ -5,9 +5,9 @@
 
             <main v-if="step == 0" class="m-main">
                 <el-alert
-                    title="未知异常"
+                    :title="$t('未知异常')"
                     type="error"
-                    description="非法请求或网络异常"
+                    :description="$t('非法请求或网络异常')"
                     show-icon
                     :closable="false"
                 >
@@ -16,14 +16,14 @@
                     class="u-button u-submit"
                     type="primary"
                     @click="reset"
-                    >返回</el-button
+                    >{{ $t('返回') }}</el-button
                 >
             </main>
 
             <!-- 1.是否存在可找回 -->
             <main v-if="step == 1" class="m-main">
                 <el-alert
-                    title="找回密码,请填写绑定的邮箱"
+                    :title="$t('找回密码,请填写绑定的邮箱')"
                     type="warning"
                     :closable="false"
                     show-icon
@@ -34,7 +34,7 @@
                     <el-input
                         class="u-text u-email"
                         v-model="email"
-                        placeholder="邮箱地址"
+                        :placeholder="$t('邮箱地址')"
                         minlength="3"
                         maxlength="50"
                         type="email"
@@ -73,15 +73,15 @@
                         type="primary"
                         @click="start"
                         :disabled="!available"
-                        >下一步</el-button
+                        >{{ $t('下一步') }}</el-button
                     >
                 </div>
                 <footer class="m-footer">
                     <p class="u-login">
-                        已有账号? <a href="../login">登录 &raquo;</a>
+                        {{ $t('已有账号') }}? <a href="../login">{{ $t('登录') }} &raquo;</a>
                     </p>
                     <p class="u-register">
-                        <a href="../register">免费注册</a>
+                        <a href="../register">{{ $t('免费注册') }}</a>
                     </p>
                 </footer>
             </main>
@@ -89,7 +89,7 @@
             <!-- 2.填写验证码与新密码 -->
             <main v-if="step == 2" class="m-main">
                 <el-alert
-                    title="请填写邮箱收到的验证码 (10分钟内有效)"
+                    :title="$t('请填写邮箱收到的验证码 (10分钟内有效)')"
                     type="success"
                     :closable="false"
                 >
@@ -100,7 +100,7 @@
                     <el-input
                         class="u-text u-code"
                         v-model="code"
-                        placeholder="验证码"
+                        :placeholder="$t('验证码')"
                         minlength="6"
                         maxlength="6"
                         @change="checkCode"
@@ -139,7 +139,7 @@
                 <div class="u-pass">
                     <el-input
                         class="u-text"
-                        placeholder="新密码"
+                        :placeholder="$t('新密码')"
                         v-model="pwd1"
                         show-password
                         @change="checkPass"
@@ -167,7 +167,7 @@
                 <div class="u-pass">
                     <el-input
                         class="u-text"
-                        placeholder="重复密码"
+                        :placeholder="$t('重复密码')"
                         v-model="pwd2"
                         show-password
                         @input="checkPass"
@@ -197,7 +197,7 @@
                     type="primary"
                     @click="done"
                     :disabled="!ready"
-                    >提交</el-button
+                    >{{ $t('提交') }}</el-button
                 >
             </main>
 
@@ -206,9 +206,9 @@
                 <!-- 成功 -->
                 <template v-if="success == true">
                     <el-alert
-                        title="重设成功"
+                        :title="$t('重设成功')"
                         type="success"
-                        description="您的密码已重设"
+                        :description="$t('您的密码已重设')"
                         show-icon
                         :closable="false"
                     >
@@ -216,14 +216,14 @@
                     <a
                         class="u-skip el-button u-button el-button--primary"
                         href="../login"
-                        >立即登录</a
+                        >{{ $t('立即登录') }}</a
                     >
                 </template>
 
                 <!-- 失败 -->
                 <template v-if="success == false">
                     <el-alert
-                        title="操作失败"
+                        :title="$t('操作失败')"
                         type="error"
                         :description="failtips"
                         show-icon
@@ -234,7 +234,7 @@
                         class="u-button u-submit"
                         type="primary"
                         @click="reset"
-                        >返回</el-button
+                        >{{ $t('返回') }}</el-button
                     >
                 </template>
             </main>

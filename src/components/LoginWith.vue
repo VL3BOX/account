@@ -10,7 +10,7 @@
                     <span class="u-oauth-name">Github</span>
                 </a></el-col
             > -->
-            <el-col :span="8"
+            <!-- <el-col :span="8"
                 ><a class="u-item" :href="qq">
                     <i class="u-oauth-logo"><img svg-inline src="../assets/img/qq.svg" /></i>
                     <span class="u-oauth-name">QQ</span>
@@ -19,15 +19,15 @@
             <el-col :span="8"
                 ><a class="u-item" :href="wechat">
                     <i class="u-oauth-logo"><img svg-inline src="../assets/img/wechat.svg" /></i>
-                    <span class="u-oauth-name">微信</span>
+                    <span class="u-oauth-name">{{ $t('微信') }}</span>
                 </a></el-col
             >
             <el-col :span="8"
                 ><a class="u-item" :href="weibo">
                     <i class="u-oauth-logo"><img svg-inline src="../assets/img/weibo.svg" /></i>
-                    <span class="u-oauth-name">微博</span>
+                    <span class="u-oauth-name">{{ $t('微博') }}</span>
                 </a></el-col
-            >
+            > -->
         </el-row>
     </div>
 </template>
