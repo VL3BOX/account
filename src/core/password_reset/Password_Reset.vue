@@ -258,21 +258,21 @@ export default {
 
             email: "",
             email_validate: null,
-            email_validate_tip: "邮箱地址格式不正确",
+            email_validate_tip: this.$t("邮箱地址格式不正确"),
             email_valid: null,
-            email_valid_tip: "账号不存在",
+            email_valid_tip: this.$t("账号不存在"),
 
             code: "",
             code_validate: null,
-            code_validate_tip: "验证码格式不正确",
+            code_validate_tip: this.$t("验证码格式不正确"),
             code_available: null,
-            code_available_tip: "验证码无效",
+            code_available_tip: this.$t("验证码无效"),
 
             pwd1: "",
             pwd2: "",
             pass_validate: null,
-            pass_validate_tip: "密码有效长度为6-50个字符",
-            pass_accordance_tip: "两次密码不一致",
+            pass_validate_tip: this.$t("密码有效长度为6-50个字符"),
+            pass_accordance_tip: this.$t("两次密码不一致"),
 
             failtips:"",
 

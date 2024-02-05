@@ -76,16 +76,16 @@ export default {
         return {
             email: "",
             email_validate: null,
-            email_validate_tip: "必须为有效的Email,长度限3-50个字符",
+            email_validate_tip: this.$t("必须为有效的Email,长度限3-50个字符"),
             email_available: null,
-            email_available_tip: "邮箱地址已被使用",
+            email_available_tip: this.$t("邮箱地址已被使用"),
 
             pass: "",
             pass_validate: null,
-            pass_validate_tip: "密码有效长度为6-50个字符",
+            pass_validate_tip: this.$t("密码有效长度为6-50个字符"),
 
             success: null,
-            failtips: "请求异常,请重试",
+            failtips: this.$t("请求异常,请重试"),
 
             homepage: __Root,
             redirect: "",
@@ -155,7 +155,7 @@ export default {
                     })
                     .catch((err) => {
                         this.success = false;
-                        this.failtips = "网络请求异常,请稍后重试";
+                        this.failtips = this.$t("网络请求异常,请稍后重试");
                     });
             }
         },

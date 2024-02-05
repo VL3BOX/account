@@ -152,15 +152,15 @@ export default {
 
             redirect: "",
             redirect_button: "",
-            errors: "未知异常",
+            errors: this.$t("未知异常"),
 
             email: "",
             email_validate: null,
-            email_validate_tip: "用户名有效长度为3-50个字符",
+            email_validate_tip: this.$t("用户名有效长度为3-50个字符"),
 
             pass: "",
             pass_validate: null,
-            pass_validate_tip: "密码有效长度为6-50个字符",
+            pass_validate_tip: this.$t("密码有效长度为6-50个字符"),
 
             homepage: __Root,
 
@@ -232,7 +232,7 @@ export default {
                                     this.skip();
                                 })
                                 .catch((err) => {
-                                    alert("浏览器版本太低,不支持本站");
+                                    alert(this.$t("浏览器版本太低,不支持本站"));
                                 });
                         } else {
                             this.success = false;
@@ -243,7 +243,7 @@ export default {
                     })
                     .catch((err) => {
                         this.success = false;
-                        this.errors = "网络异常或非法请求";
+                        this.errors = this.$t("网络异常或非法请求");
                     });
             }
         },
@@ -262,7 +262,7 @@ export default {
         isfrozen: function() {
             if (this.failcount >= this.faillimit) {
                 this.success = false;
-                this.errors = "失败次数过多,请24小时后再试";
+                this.errors = this.$t("失败次数过多,请24小时后再试");
                 return true;
             }
             return false;
@@ -272,10 +272,10 @@ export default {
             let redirect = search.get("redirect");
             if (redirect) {
                 this.redirect = redirect;
-                this.redirect_button = "即将跳转";
+                this.redirect_button = this.$t("即将跳转");
             } else {
                 this.redirect = this.homepage;
-                this.redirect_button = "返回首页";
+                this.redirect_button = this.$t("返回首页");
             }
             console.log(decodeURIComponent(this.redirect));
         },
