@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { getBread } from "@jx3box/jx3box-common/js/helper";
+import { getBreadcrumb } from "@jx3box/jx3box-common/js/api_misc";
 export default {
     data: function() {
         return {
@@ -11,8 +11,8 @@ export default {
         };
     },
     mounted: function() {
-        getBread("account").then((res) => {
-            this.data = res.data.data.breadcrumb.html;
+        getBreadcrumb("account").then((res) => {
+            this.data = res
         });
     },
 };
