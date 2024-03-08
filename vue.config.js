@@ -45,6 +45,15 @@ module.exports = {
         // },
     },
 
+    //❤️ Porxy ~
+    devServer: {
+        proxy: {
+            "/api/cms": {
+                target: process.env["DEV_SERVER"] == "true" ? "http://localhost:7100" : "https://cms.jx3box.com",
+            },
+        }
+    },
+
     //❤️ define path for static files ~
     publicPath:
         //FOR Localhost => development
